@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import Sidebar from "./components/sidebar/SideBar";
+import { Routes, Route } from "react-router-dom";
+import {notesAPI} from "./api/notes-api";
+import Notes from "./components/pages/Notes";
+import AddNote from "./components/pages/AddNote";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [connectionStatus, setConnectionStatus] = useState('');
+    const [connectionErrorStatus, setConnectionErrorStatus] = useState('');
+
+    useEffect(() => {
+        notesAPI.GetHome()
+            .then((res) => {
+                setConnectionStatus(res.data.data)
+            })
+            .catch(reason => {
+                setConnectionErrorStatus(reason)
+            })
+    }, [])
+
+    return (
+        <>
+            {/*<div>Connection status: {connection}</div>*/}
+                <Sidebar />
+                <Routes>
+                    <Route path='/' element={<Notes />} />
+                    <Route path='/note' element={<AddNote />} />
+                    {/*<Route path='/tasks' element={<Tasks />} />*/}
+                    {/*<Route path='/chats' element={<Chats />} />*/}
+                    {/*<Route path='/analytics' element={<Analytics />} />*/}
+                </Routes>
+        </>
+    );
 }
 
 export default App;
