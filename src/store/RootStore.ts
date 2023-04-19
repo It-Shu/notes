@@ -1,4 +1,3 @@
-import {createContext, useContext} from "react";
 import ConnectStore from "./ConnectStore";
 import NotesStore from "./NotesStore";
 import {makeAutoObservable} from "mobx";
@@ -12,7 +11,6 @@ class RootStore {
     constructor() {
         makeAutoObservable(this)
     }
-
 
 }
 

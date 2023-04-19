@@ -17,19 +17,19 @@ type ResponseNoteType = {
 
 export const notesAPI = {
     GetHome() {
-        return instance.get('api')
+        return instance.get<AxiosResponse>('api')
     },
     GetNotes() {
-        return instance.get('api/notes')
+        return instance.get<AxiosResponse>('api/notes')
     },
     CreateNote(payload: NoteType) {
         return instance.post<{payload: NoteType}, AxiosResponse<ResponseNoteType>>('api/notes', payload)
     },
     DeleteNote(id: number) {
-        return instance.delete(`api/notes/${id}`)
+        return instance.delete<AxiosResponse>(`api/notes/${id}`)
     },
     GetNote(id: null | number) {
-        return instance.get(`api/notes/${id}`)
+        return instance.get<AxiosResponse>(`api/notes/${id}`)
     },
     UpdateNote(id: null | number, payload: NoteType) {
         return instance.put<{payload: NoteType}, AxiosResponse<ResponseNoteType>>(`api/notes/${id}`, payload)

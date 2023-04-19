@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {MouseEvent} from 'react';
 import * as C from '../Notes.style';
 import {NotesType} from "./Notes";
 
@@ -7,9 +7,11 @@ type NotesPropsType = {
     noteId: null | number
     getNoteDeleteId: (id: number | null) => void
     viewNoteHandler: (id: number | null) => void
+    handleActive: () => void
 }
 
 const Note = (props: NotesPropsType) => {
+
 
     return (
         <>
@@ -18,11 +20,13 @@ const Note = (props: NotesPropsType) => {
                 return (
                     <C.Note key={data.id} onClick={() => {
                         props.viewNoteHandler(data.id)
+                        props.handleActive()
                     }}>
                         <C.HeaderNote>
                             <C.NoteTitle>{data.title}</C.NoteTitle>
-                            <C.TrashNote onClick={() => {
+                            <C.TrashNote onClick={(e) => {
                                 props.getNoteDeleteId(data.id)
+                                e.stopPropagation()
                             }}/>
                         </C.HeaderNote>
                         <C.NoteContent>{data.content}</C.NoteContent>
