@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import * as C from '../Notes.style';
-import {NotesType} from "../pages/Notes";
+import {NotesType} from "./Notes";
 
 type NotesPropsType = {
     notes: NotesType[]

@@ -4,16 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import {notesStore, NotesStoreContext} from './store/NotesStore';
+import {RootStoreProvider} from "./store/RootStoreProvider";
+
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
 root.render(
     <BrowserRouter>
-        <NotesStoreContext.Provider value={notesStore}>
+        <RootStoreProvider>
             <App/>
-        </NotesStoreContext.Provider>
+        </RootStoreProvider>
     </BrowserRouter>,
 );
 

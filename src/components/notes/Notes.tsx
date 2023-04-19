@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {notesAPI} from "../../api/notes-api";
-import Note from "../notes/Note";
+import Note from "./Note";
 import Modal from "../modal/Modal";
 import {useModal} from "../modal/hooks/useModal";
-import NoteDetails from "../notes/NoteDetails";
+import NoteDetails from "./NoteDetails";
 import {observer} from "mobx-react-lite";
-import {NotesStoreContext} from "../../store/NotesStore";
+import {useRootStore} from "../../store/RootStoreProvider";
 
 const NotesContainer = styled.div`
   display: flex;
@@ -25,7 +25,8 @@ export type NotesType = {
 
 const Notes: React.FunctionComponent = observer(() => {
 
-    const notes = useContext(NotesStoreContext);
+    // const notes = useContext(NotesStoreContext);
+    const {notesStore} = useRootStore()
 
     const note = {date: '', id: null, title: '', content: '', status: true}
 
@@ -47,12 +48,12 @@ const Notes: React.FunctionComponent = observer(() => {
     }
 
     useEffect(() => {
-        notes.fetchNote()
+        notesStore.fetchNote()
     }, [])
 
     useEffect(() => {
         if (noteId) {
-            notes.removeNote(noteId)
+            notesStore.removeNote(noteId)
         }
     }, [noteId])
 
@@ -67,7 +68,7 @@ const Notes: React.FunctionComponent = observer(() => {
         <NotesContainer>
             <Modal active={modalActive} content={<NoteDetails noteData={noteData}/>} onClose={handleClose}/>
             <Note
-                notes={notes.notes}
+                notes={notesStore.notes}
                 noteId={noteId}
                 getNoteDeleteId={getNoteId}
                 viewNoteHandler={viewNoteHandler}

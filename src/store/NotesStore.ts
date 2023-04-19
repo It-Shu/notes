@@ -1,6 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {createContext} from 'react';
-import {NotesType} from "../components/pages/Notes";
+import {NotesType} from "../components/notes/Notes";
 import {notesAPI} from "../api/notes-api";
 
 class NotesStore {
@@ -29,13 +28,12 @@ class NotesStore {
     }
 
     viewDetailedNote = () => {
-    
+
     }
-
-
-
+    
 }
 
-export const notesStore = new NotesStore();
+// export const notesStore = new NotesStore();
+export default NotesStore
 
-export const NotesStoreContext = createContext(new NotesStore());
+

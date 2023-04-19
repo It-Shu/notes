@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {NotesType} from "../pages/Notes";
+import {NotesType} from "./Notes";
 import {notesAPI, NoteType} from "../../api/notes-api";
 
 type NoteDetailsTypes = {

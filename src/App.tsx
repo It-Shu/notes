@@ -3,8 +3,8 @@ import './App.css';
 import Sidebar from "./components/sidebar/SideBar";
 import { Routes, Route } from "react-router-dom";
 import {notesAPI} from "./api/notes-api";
-import Notes from "./components/pages/Notes";
-import AddNote from "./components/pages/AddNote";
+import Notes from "./components/notes/Notes";
+import AddNote from "./components/notes/AddNote";
 
 function App() {
 
