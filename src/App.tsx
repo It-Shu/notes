@@ -1,29 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Sidebar from "./components/sidebar/SideBar";
 import { Routes, Route } from "react-router-dom";
-import {notesAPI} from "./api/notes-api";
 import Notes from "./components/notes/Notes";
 import AddNote from "./components/notes/AddNote";
+import {useRootStore} from "./store/RootStoreProvider";
+import {observer} from "mobx-react-lite";
 
-function App() {
+const App = observer(() => {
 
-    const [connectionStatus, setConnectionStatus] = useState('');
-    const [connectionErrorStatus, setConnectionErrorStatus] = useState('');
+    const {connectStore} = useRootStore()
 
     useEffect(() => {
-        notesAPI.GetHome()
-            .then((res) => {
-                setConnectionStatus(res.data.data)
-            })
-            .catch(reason => {
-                setConnectionErrorStatus(reason)
-            })
+        connectStore.fetchConnect()
     }, [])
 
     return (
         <>
-            {/*<div>Connection status: {connection}</div>*/}
+            <div>Connection status: {connectStore.connectionStatus}</div>
                 <Sidebar />
                 <Routes>
                     <Route path='/' element={<Notes />} />
@@ -34,6 +28,6 @@ function App() {
                 </Routes>
         </>
     );
-}
+})
 
 export default App;

@@ -1,14 +1,19 @@
 import {makeAutoObservable} from "mobx";
 import {NotesType} from "../components/notes/Notes";
 import {notesAPI} from "../api/notes-api";
+import RootStore from "./RootStore";
 
 class NotesStore {
 
+    note: NotesType = {date: '', id: null, title: '', content: '', status: true}
+    noteId: number | null = null
     notes: NotesType[] = [];
     deleteStatus: string = ''
 
-    constructor() {
+    constructor(private readonly  store: RootStore) {
         makeAutoObservable(this)
+
+        // this.store.connectStore.connectionStatus
     }
 
     fetchNote = () => {
@@ -27,13 +32,20 @@ class NotesStore {
             })
     }
 
-    viewDetailedNote = () => {
-
+    viewDetailedNote = (id: number | null) => {
+            notesAPI.GetNote(id)
+                .then(res => {
+                    this.note = res.data.data
+                })
     }
-    
+
+    getNoteId = (id: number | null) => {
+        if (typeof id == "number")
+            this.noteId = id
+    }
+
 }
 
-// export const notesStore = new NotesStore();
 export default NotesStore
 
 
