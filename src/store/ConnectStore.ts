@@ -1,5 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import {notesAPI} from "../api/notes-api";
+import RootStore from "./RootStore";
 
 
 class ConnectStore {
@@ -7,7 +8,7 @@ class ConnectStore {
     connectionStatus: string = ''
     connectionErrorStatus: string = ''
 
-    constructor() {
+    constructor(private readonly  store: RootStore) {
     makeAutoObservable(this)
     }
 

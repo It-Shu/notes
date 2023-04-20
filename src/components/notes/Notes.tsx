@@ -33,14 +33,12 @@ const Notes: React.FunctionComponent = observer(() => {
 
     const {modalActive, handleClose, handleActive} = useModal(false);
 
-    // const viewNote = (id: number | null) => {
-    //     debugger
-    //     notesStore.viewDetailedNote(id)
-    //     handleActive()
-    // }
-
     useEffect(() => {
         notesStore.fetchNote()
+    }, [])
+
+    useEffect(() => {
+
     }, [])
 
     useEffect(() => {

@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import {NotesType} from "../components/notes/Notes";
 import {notesAPI} from "../api/notes-api";
+import RootStore from "./RootStore";
 
 class NotesStore {
 
@@ -9,8 +10,10 @@ class NotesStore {
     notes: NotesType[] = [];
     deleteStatus: string = ''
 
-    constructor() {
+    constructor(private readonly  store: RootStore) {
         makeAutoObservable(this)
+
+        // this.store.connectStore.connectionStatus
     }
 
     fetchNote = () => {

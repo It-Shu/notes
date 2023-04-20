@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {FC, MouseEvent} from 'react';
 import * as C from '../Notes.style';
 import {NotesType} from "./Notes";
 
@@ -10,22 +10,30 @@ type NotesPropsType = {
     handleActive: () => void
 }
 
-const Note = (props: NotesPropsType) => {
+const Note: FC<NotesPropsType> = (props) => {
+
+    const {
+        notes,
+        noteId,
+        getNoteDeleteId,
+        viewNoteHandler,
+        handleActive
+    } = props
 
 
     return (
         <>
-            {props.notes.filter(n => n.id !== props.noteId).map((data) => {
+            {notes.filter(n => n.id !== noteId).map((data) => {
 
                 return (
                     <C.Note key={data.id} onClick={() => {
-                        props.viewNoteHandler(data.id)
-                        props.handleActive()
+                        viewNoteHandler(data.id)
+                        handleActive()
                     }}>
                         <C.HeaderNote>
                             <C.NoteTitle>{data.title}</C.NoteTitle>
                             <C.TrashNote onClick={(e) => {
-                                props.getNoteDeleteId(data.id)
+                                getNoteDeleteId(data.id)
                                 e.stopPropagation()
                             }}/>
                         </C.HeaderNote>

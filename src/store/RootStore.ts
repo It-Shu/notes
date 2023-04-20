@@ -5,11 +5,13 @@ import {makeAutoObservable} from "mobx";
 
 class RootStore {
 
-    notesStore = new NotesStore()
-    connectStore = new ConnectStore()
+readonly  notesStore: NotesStore
+readonly  connectStore: ConnectStore
 
     constructor() {
-        makeAutoObservable(this)
+        // makeAutoObservable(this)
+        this.notesStore = new NotesStore(this)
+        this.connectStore = new ConnectStore(this)
     }
 
 }
