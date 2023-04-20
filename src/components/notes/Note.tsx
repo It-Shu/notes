@@ -1,4 +1,4 @@
-import React, {FC, MouseEvent} from 'react';
+import React, {FC} from 'react';
 import * as C from '../Notes.style';
 import {NotesType} from "./Notes";
 

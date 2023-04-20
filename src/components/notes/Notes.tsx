@@ -26,11 +26,6 @@ export type NotesType = {
 const Notes: React.FunctionComponent = observer(() => {
     const {notesStore} = useRootStore()
 
-    // const note = {date: '', id: null, title: '', content: '', status: true}
-
-    // const [noteId, setNoteId] = useState<null | number>(null)
-    // const [noteData, setNoteData] = useState<NotesType>(note)
-
     const {modalActive, handleClose, handleActive} = useModal(false);
 
     useEffect(() => {
@@ -46,11 +41,6 @@ const Notes: React.FunctionComponent = observer(() => {
             notesStore.removeNote(notesStore.noteId)
         }
     }, [notesStore.noteId])
-
-    // const getNoteId = (id: number | null) => {
-    //     if (id)
-    //     setNoteId(id)
-    // }
 
     // todo обновление детальной информации о заметке в модальном окне после edit
 
