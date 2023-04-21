@@ -1,6 +1,5 @@
-import React, { useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
-import {notesAPI} from "../../api/notes-api";
 import Note from "./Note";
 import Modal from "../modal/Modal";
 import {useModal} from "../modal/hooks/useModal";
@@ -33,27 +32,18 @@ const Notes: React.FunctionComponent = observer(() => {
     }, [])
 
     useEffect(() => {
-
-    }, [])
-
-    useEffect(() => {
         if (notesStore.noteId) {
             notesStore.removeNote(notesStore.noteId)
         }
     }, [notesStore.noteId])
 
-    // todo обновление детальной информации о заметке в модальном окне после edit
+    // todo открытые модального окна только после изменения данных
 
     return (
         <NotesContainer>
+
             <Modal active={modalActive} content={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose}/>
-            <Note
-                notes={notesStore.notes}
-                noteId={notesStore.noteId}
-                getNoteDeleteId={notesStore.getNoteId}
-                viewNoteHandler={notesStore.viewDetailedNote}
-                handleActive={handleActive}
-            />
+            <Note handleActive={handleActive}/>
         </NotesContainer>
     )
 })
