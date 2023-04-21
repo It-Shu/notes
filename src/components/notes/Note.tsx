@@ -28,6 +28,7 @@ const Note: FC<NotesPropsType> = (props) => {
                 return (
                     <C.Note key={data.id} onClick={() => {
                         viewNoteHandler(data.id)
+                        
                         handleActive()
                     }}>
                         <C.HeaderNote>
