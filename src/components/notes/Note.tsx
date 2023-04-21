@@ -1,40 +1,34 @@
 import React, {FC} from 'react';
 import * as C from '../Notes.style';
-import {NotesType} from "./Notes";
+import {observer} from "mobx-react-lite";
+import {useRootStore} from "../../store/RootStoreProvider";
 
 type NotesPropsType = {
-    notes: NotesType[]
-    noteId: null | number
-    getNoteDeleteId: (id: number | null) => void
-    viewNoteHandler: (id: number | null) => void
     handleActive: () => void
 }
 
-const Note: FC<NotesPropsType> = (props) => {
+const Note: FC<NotesPropsType> = observer((props) => {
 
     const {
-        notes,
-        noteId,
-        getNoteDeleteId,
-        viewNoteHandler,
         handleActive
     } = props
+
+    const {notesStore} = useRootStore()
 
 
     return (
         <>
-            {notes.filter(n => n.id !== noteId).map((data) => {
+            {notesStore.notes.filter(n => n.id !== notesStore.noteId).map((data) => {
 
                 return (
                     <C.Note key={data.id} onClick={() => {
-                        viewNoteHandler(data.id)
-                        
+                        notesStore.viewDetailedNote(data.id)
                         handleActive()
                     }}>
                         <C.HeaderNote>
                             <C.NoteTitle>{data.title}</C.NoteTitle>
                             <C.TrashNote onClick={(e) => {
-                                getNoteDeleteId(data.id)
+                                notesStore.getNoteId(data.id)
                                 e.stopPropagation()
                             }}/>
                         </C.HeaderNote>
@@ -44,6 +38,6 @@ const Note: FC<NotesPropsType> = (props) => {
             })}
         </>
     );
-};
+});
 
 export default Note;

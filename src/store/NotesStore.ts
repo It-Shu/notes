@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import {NotesType} from "../components/notes/Notes";
 import {notesAPI, NoteType} from "../api/notes-api";
 import RootStore from "./RootStore";
+import {ChangeEvent} from "react";
 
 class NotesStore {
 
@@ -11,8 +12,11 @@ class NotesStore {
     notes: NotesType[] = [];
     deleteStatus: string = ''
     updatedNoteData: NoteType = {title: '', content: '', status: true}
-
     editModeIsActive: boolean = false
+
+    newNoteTitle: string | undefined = ''
+    newNoteContent: string | undefined = ''
+    newNoteStatus: string = ''
 
     constructor(private readonly  store: RootStore) {
         makeAutoObservable(this)
@@ -48,10 +52,10 @@ class NotesStore {
     updateNote = () => {
         notesAPI.UpdateNote(this.note.id, this.updatedNoteData)
             .then(res => {
-                console.log('updated status',res.data.data)
+                console.log(`updated status: ${res.data.data}`)
             })
             .catch(error => {
-                console.log('updated error',error)
+                alert(`updated error: ${error}` )
             })
             .finally(() => {
                 this.editModeIsActive = false
@@ -76,6 +80,43 @@ class NotesStore {
     activateEditMode = () => {
         this.editModeIsActive = true
     }
+
+    getNewNoteTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        this.updatedNoteData.title = event.currentTarget.value
+    }
+
+    getNewNoteContent = (event: ChangeEvent<HTMLInputElement>) => {
+        this.updatedNoteData.content = event.currentTarget.value
+    }
+
+    addNewNote = () => {
+        if (this.newNoteTitle && this.newNoteContent) {
+            const newNote = {"title": this.newNoteTitle, "content": this.newNoteContent, "status": true}
+            notesAPI.CreateNote(newNote)
+                .then((res) => {
+                    if (res.data.data) {
+                        this.newNoteTitle = ''
+                        this.newNoteContent = ''
+                    }
+                    this.newNoteStatus = res.data.data
+
+                })
+        }
+
+        if (this.newNoteTitle === '') {
+            return this.newNoteStatus = 'title is required'
+        } else if (this.newNoteContent === '') {
+            return this.newNoteStatus ='content is required'
+        }
+    }
+
+    newNoteTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        this.newNoteTitle = event.currentTarget.value;
+    };
+
+    newNoteContentHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        this.newNoteContent = event.currentTarget.value;
+    };
 
 }
 
