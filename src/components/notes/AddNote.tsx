@@ -4,6 +4,7 @@ import {notesAPI} from "../../api/notes-api";
 import * as C from '../Notes.style'
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../../store/RootStoreProvider";
+import {NoteInput} from "../Notes.style";
 
 const AddNoteText = styled.div`
   display: flex;
@@ -55,10 +56,10 @@ const AddNote: React.FunctionComponent = observer(() => {
     return (
         <AddNoteText>
             <C.NoteInputContainer>
-                <C.NoteInputTitle type="text" value={notesStore.newNoteTitle} placeholder='title' onChange={notesStore.newNoteTitleHandler}/>
-                <C.NoteInputContent type="text" value={notesStore.newNoteContent} placeholder='content'
+                <C.NoteInput type="text" value={notesStore.newNoteTitle} placeholder='title' onChange={notesStore.newNoteTitleHandler}/>
+                <C.NoteInput type="text" value={notesStore.newNoteContent} placeholder='content'
                                     onChange={notesStore.newNoteContentHandler}/>
-                <button onClick={notesStore.addNewNote}>add note</button>
+                <C.AddNoteButton onClick={notesStore.addNewNote}>add note</C.AddNoteButton>
             </C.NoteInputContainer>
             <div>{notesStore.newNoteStatus}</div>
         </AddNoteText>
