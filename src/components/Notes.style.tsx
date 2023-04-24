@@ -21,7 +21,7 @@ export const NoteModal = styled.div`
 `
 
 export const HeaderNote = styled.div`
-display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 `
@@ -46,12 +46,41 @@ export const NoteContent = styled.div`
 
 `
 
-export const NoteInputTitle = styled.input`
+export const NoteInput = styled.input`
+  padding: 10px;
+  margin: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.09);
+  border-radius: 10px;
+  outline: none;
+  
+  :hover {
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  :active {
+    
+  }
+`
+export const AddNoteButton = styled.button`
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #a5a5ec;
+
+  :hover {
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  :active {
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+  }
 
 `
-export const NoteInputContent = styled.input`
-  margin: 20px 0 20px 0;
-`
+
 export const NoteInputContainer = styled.div`
   display: flex;
   flex-direction: column;

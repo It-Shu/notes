@@ -39,9 +39,14 @@ const Notes: React.FunctionComponent = observer(() => {
 
     // todo открытые модального окна только после изменения данных
 
+    if (notesStore.error) {
+        return <div>
+            {notesStore.error}
+        </div>
+    }
+
     return (
         <NotesContainer>
-
             <Modal active={modalActive} content={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose}/>
             <Note handleActive={handleActive}/>
         </NotesContainer>

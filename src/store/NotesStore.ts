@@ -17,6 +17,7 @@ class NotesStore {
     newNoteTitle: string | undefined = ''
     newNoteContent: string | undefined = ''
     newNoteStatus: string = ''
+    error: string = ''
 
     constructor(private readonly  store: RootStore) {
         makeAutoObservable(this)
@@ -29,6 +30,10 @@ class NotesStore {
             .then(res => {
                 this.notes = res.data.data
                 this.deleteStatus = ''
+            })
+            .catch((err) => {
+                this.error = err.message
+                console.log(err.message)
             })
     }
 
@@ -122,4 +127,95 @@ class NotesStore {
 
 export default NotesStore
 
+
+// import { makeAutoObservable } from "mobx";
+// import { ChangeEvent } from "react";
+// import { NoteType, notesAPI } from "../api/notes-api";
+// import RootStore from "./RootStore";
+//
+// interface Note {
+//     id: number;
+//     title: string;
+//     content: string;
+//     status: boolean;
+//     date: string;
+// }
+//
+// class NotesStore {
+//     notes: Note[] = [];
+//     isLoading: boolean = false;
+//     error: string = "";
+//
+//     constructor(private readonly store: RootStore) {
+//         makeAutoObservable(this);
+//     }
+//
+//     fetchNotes = async () => {
+//         this.isLoading = true;
+//         try {
+//             const res = await notesAPI.getNotes();
+//             this.notes = res.data.data;
+//         } catch (error) {
+//             this.error = error.message;
+//         } finally {
+//             this.isLoading = false;
+//         }
+//     };
+//
+//     addNote = async (title: string, content: string, status: boolean) => {
+//         try {
+//             const res = await notesAPI.createNote({
+//                 title,
+//                 content,
+//                 status,
+//             });
+//             const newNote = res.data.data;
+//             this.notes.push(newNote);
+//         } catch (error) {
+//             this.error = error.message;
+//         }
+//     };
+//
+//     updateNote = async (note: Note) => {
+//         try {
+//             await notesAPI.updateNote(note.id, {
+//                 title: note.title,
+//                 content: note.content,
+//                 status: note.status,
+//             });
+//         } catch (error) {
+//             this.error = error.message;
+//         }
+//     };
+//
+//     deleteNote = async (noteId: number) => {
+//         try {
+//             await notesAPI.deleteNote(noteId);
+//             this.notes = this.notes.filter((note) => note.id !== noteId);
+//         } catch (error) {
+//             this.error = error.message;
+//         }
+//     };
+//
+//     clearError = () => {
+//         this.error = "";
+//     };
+//
+//     // Optional: separate concerns into different modules
+//     // For example:
+//     // - NoteFormStore: responsible for managing form state and validation
+//     // - NoteEditModeStore: responsible for managing edit mode state
+//
+//     // Optional: improve error handling with more descriptive error messages and consistent handling
+//
+//     // Optional: use async/await for more readable and maintainable asynchronous code
+//
+//     // Optional: use interfaces to define types instead of defining them inline
+//
+//     // Optional: use more descriptive variable and function names to improve readability and maintainability
+//
+//     // Optional: use constants for string literals and API endpoints
+// }
+//
+// export default NotesStore;
 
