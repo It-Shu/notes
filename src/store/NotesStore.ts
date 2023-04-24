@@ -17,6 +17,7 @@ class NotesStore {
     newNoteTitle: string | undefined = ''
     newNoteContent: string | undefined = ''
     newNoteStatus: string = ''
+    error: string = ''
 
     constructor(private readonly  store: RootStore) {
         makeAutoObservable(this)
@@ -29,6 +30,10 @@ class NotesStore {
             .then(res => {
                 this.notes = res.data.data
                 this.deleteStatus = ''
+            })
+            .catch((err) => {
+                this.error = err.message
+                console.log(err.message)
             })
     }
 
