@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import Note from "./Note";
 import Modal from "../modal/Modal";
@@ -13,6 +13,7 @@ const NotesContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
+
 export type NotesType = {
     date: string,
     id: number | null,
@@ -27,6 +28,8 @@ const Notes: React.FunctionComponent = observer(() => {
 
     const {modalActive, handleClose, handleActive} = useModal(false);
 
+    const [noteDataChanged, setNoteDataChanged] = useState(false);
+
     useEffect(() => {
         notesStore.fetchNote()
     }, [])
@@ -36,6 +39,17 @@ const Notes: React.FunctionComponent = observer(() => {
             notesStore.removeNote(notesStore.noteId)
         }
     }, [notesStore.noteId])
+
+    useEffect(() => {
+        if (noteDataChanged) {
+            handleActive();
+            setNoteDataChanged(false);
+        }
+    }, [notesStore.note])
+
+    const activateModalWindow = () => {
+        setNoteDataChanged(true);
+    }
 
     // todo открытые модального окна только после изменения данных
 
@@ -48,7 +62,7 @@ const Notes: React.FunctionComponent = observer(() => {
     return (
         <NotesContainer>
             <Modal active={modalActive} content={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose}/>
-            <Note handleActive={handleActive}/>
+            <Note handleActive={activateModalWindow}/>
         </NotesContainer>
     )
 })
