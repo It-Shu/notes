@@ -8,6 +8,7 @@ class NotesStore {
 
 
     note: NotesType = {date: '', id: null, title: '', content: '', status: true}
+
     noteId: number | null = null
     notes: NotesType[] = [];
     deleteStatus: string = ''
