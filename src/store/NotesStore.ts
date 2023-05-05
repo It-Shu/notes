@@ -20,7 +20,7 @@ class NotesStore {
     newNoteStatus: string = ''
     error: string = ''
 
-    constructor(private readonly  store: RootStore) {
+    constructor(private readonly store: RootStore) {
         makeAutoObservable(this)
 
         // this.store.connectStore.connectionStatus
@@ -47,12 +47,12 @@ class NotesStore {
     }
 
     viewDetailedNote = (id: number | null) => {
-            notesAPI.GetNote(id)
-                .then(res => {
-                    this.note = res.data.data
-                    this.updatedNoteData.title = this.note.title
-                    this.updatedNoteData.content = this.note.content
-                })
+        notesAPI.GetNote(id)
+            .then(res => {
+                this.note = res.data.data
+                this.updatedNoteData.title = this.note.title
+                this.updatedNoteData.content = this.note.content
+            })
     }
 
     updateNote = () => {
@@ -61,7 +61,7 @@ class NotesStore {
                 console.log(`updated status: ${res.data.data}`)
             })
             .catch(error => {
-                alert(`updated error: ${error}` )
+                alert(`updated error: ${error}`)
             })
             .finally(() => {
                 this.editModeIsActive = false
@@ -80,6 +80,8 @@ class NotesStore {
     }
 
     disableEditMode = () => {
+        this.updatedNoteData.title = this.note.title
+        this.updatedNoteData.content = this.note.content
         this.editModeIsActive = false
     }
 
@@ -112,7 +114,7 @@ class NotesStore {
         if (this.newNoteTitle === '') {
             return this.newNoteStatus = 'title is required'
         } else if (this.newNoteContent === '') {
-            return this.newNoteStatus ='content is required'
+            return this.newNoteStatus = 'content is required'
         }
     }
 
