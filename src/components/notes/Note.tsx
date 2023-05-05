@@ -32,7 +32,7 @@ const Note: FC<NotesPropsType> = observer((props) => {
                                 e.stopPropagation()
                             }}/>
                         </C.HeaderNote>
-                        <C.NoteContent>{data.content}</C.NoteContent>
+                        <div>{data.content}</div>
                     </C.Note>
                 )
             })}

@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import './App.style';
 import Sidebar from "./components/sidebar/SideBar";
 import { Routes, Route } from "react-router-dom";
 import Notes from "./components/notes/Notes";
 import AddNote from "./components/notes/AddNote";
 import {useRootStore} from "./store/RootStoreProvider";
 import {observer} from "mobx-react-lite";
+import {ConnectionStatus} from "./App.style";
 
 const App = observer(() => {
 
@@ -17,7 +18,7 @@ const App = observer(() => {
 
     return (
         <>
-            <div>Connection status: {connectStore.connectionStatus}</div>
+            <ConnectionStatus>Connection status: {connectStore.connectionStatus}</ConnectionStatus>
                 <Sidebar />
                 <Routes>
                     <Route path='/notes' element={<Notes />} />

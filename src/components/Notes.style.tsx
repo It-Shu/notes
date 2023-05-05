@@ -42,8 +42,9 @@ export const NoteTitle = styled.div`
   font-weight: bold;
 `
 
-export const NoteContent = styled.div`
-
+export const NoteError = styled.div`
+display: flex;
+  justify-content: center;
 `
 
 export const NoteInput = styled.input`
@@ -51,7 +52,7 @@ export const NoteInput = styled.input`
   margin: 10px;
   border: 0;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.09);
-  border-radius: 10px;
+  border-radius: 5px;
   outline: none;
   
   :hover {
@@ -62,12 +63,12 @@ export const NoteInput = styled.input`
     
   }
 `
-export const AddNoteButton = styled.button`
+export const NoteButton = styled.button`
   padding: 10px;
   margin: 10px;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
   border: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #fff;
   background-color: #a5a5ec;
 
@@ -82,6 +83,7 @@ export const AddNoteButton = styled.button`
 `
 
 export const NoteInputContainer = styled.div`
+  padding: 20px;
   display: flex;
   flex-direction: column;
 

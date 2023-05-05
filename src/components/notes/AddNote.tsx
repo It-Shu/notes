@@ -59,7 +59,7 @@ const AddNote: React.FunctionComponent = observer(() => {
                 <C.NoteInput type="text" value={notesStore.newNoteTitle} placeholder='title' onChange={notesStore.newNoteTitleHandler}/>
                 <C.NoteInput type="text" value={notesStore.newNoteContent} placeholder='content'
                                     onChange={notesStore.newNoteContentHandler}/>
-                <C.AddNoteButton onClick={notesStore.addNewNote}>add note</C.AddNoteButton>
+                <C.NoteButton onClick={notesStore.addNewNote}>add note</C.NoteButton>
             </C.NoteInputContainer>
             <div>{notesStore.newNoteStatus}</div>
         </AddNoteText>
