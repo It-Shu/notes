@@ -20,7 +20,7 @@ const App = observer(() => {
             <div>Connection status: {connectStore.connectionStatus}</div>
                 <Sidebar />
                 <Routes>
-                    <Route path='/' element={<Notes />} />
+                    <Route path='/notes' element={<Notes />} />
                     <Route path='/note' element={<AddNote />} />
                     {/*<Route path='/tasks' element={<Tasks />} />*/}
                     {/*<Route path='/chats' element={<Chats />} />*/}
