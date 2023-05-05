@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import Note from "./Note";
 import Modal from "../modal/Modal";
@@ -6,8 +6,7 @@ import {useModal} from "../modal/hooks/useModal";
 import NoteDetails from "./NoteDetails";
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../../store/RootStoreProvider";
-import Content from "../../Test";
-
+import * as C from '../Notes.style'
 const NotesContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,58 +49,19 @@ const Notes: React.FunctionComponent = observer(() => {
 
     const activateModalWindow = () => {
         setNoteDataChanged(true);
+        notesStore.editModeIsActive = modalActive
     }
 
-    // test
-    const [actionExecuted, setActionExecuted] = useState(false);
-
-    const delayedCall = () => {
-        setTimeout(() => {
-            alert("Действие выполнено");
-            setActionExecuted(true);
-        }, 0);
-    };
-
-    const handleConfirm = useCallback(() => {
-        delayedCall();
-    }, []);
-
-    const actionCheck = () => {
-        if (!actionExecuted) {
-            return handleActive();
-        } else {
-            return delayedCall();
-        }
-    };
-// test
     if (notesStore.error) {
-        return <div>
+        return <C.NoteError>
             {notesStore.error}
-        </div>
+        </C.NoteError>
     }
 
     return (
         <>
-            {/*<button onClick={actionCheck}>Выполнить действие</button>*/}
-            {/*{!actionExecuted*/}
-            {/*    ?*/}
-
-            {/*        <Modal*/}
-            {/*            active={modalActive}*/}
-            {/*            children={*/}
-            {/*                <Content*/}
-            {/*                    onConfirm={handleConfirm}*/}
-            {/*                    isModalActive={modalActive}*/}
-            {/*                    onModalClose={handleClose}*/}
-            {/*                />}*/}
-            {/*            // onClose={handleClose}*/}
-            {/*        />*/}
-
-
-            {/*    : null }*/}
-
             <NotesContainer>
-                <Modal children={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose} active={modalActive}/>
+                <Modal children={<NoteDetails />} onClose={handleClose} active={modalActive}/>
                 <Note handleActive={activateModalWindow}/>
             </NotesContainer>
         </>
@@ -110,3 +70,44 @@ const Notes: React.FunctionComponent = observer(() => {
 })
 
 export default Notes
+
+// test
+// const [actionExecuted, setActionExecuted] = useState(false);
+//
+// const delayedCall = () => {
+//     setTimeout(() => {
+//         alert("Действие выполнено");
+//         setActionExecuted(true);
+//     }, 0);
+// };
+//
+// const handleConfirm = useCallback(() => {
+//     delayedCall();
+// }, []);
+//
+// const actionCheck = () => {
+//     if (!actionExecuted) {
+//         return handleActive();
+//     } else {
+//         return delayedCall();
+//     }
+// };
+// test
+
+{/*<button onClick={actionCheck}>Выполнить действие</button>*/}
+{/*{!actionExecuted*/}
+{/*    ?*/}
+
+{/*        <Modal*/}
+{/*            active={modalActive}*/}
+{/*            children={*/}
+{/*                <Content*/}
+{/*                    onConfirm={handleConfirm}*/}
+{/*                    isModalActive={modalActive}*/}
+{/*                    onModalClose={handleClose}*/}
+{/*                />}*/}
+{/*            // onClose={handleClose}*/}
+{/*        />*/}
+
+
+{/*    : null }*/}

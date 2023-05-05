@@ -5,7 +5,7 @@ import {FaEvernote, FaItunesNote, FaRegStickyNote, FaStickyNote} from "react-ico
 export const SidebarData = [
     {
         title: 'Notes',
-        path: '/notes/', // FaTrash
+        path: '/notes', // FaTrash
         icon: <FaIcons.FaStickyNote/>
     },
     {
