@@ -1,8 +1,8 @@
-import React, { FC, MouseEvent } from 'react';
+import React, {FC, MouseEvent, ReactNode} from 'react';
 import * as C from './Modal.style';
 
 interface ModalProps {
-    content?: JSX.Element | string;
+    children?: ReactNode;
     active: boolean;
     onClose?: () => void;
 }
@@ -10,7 +10,7 @@ interface ModalProps {
 const Modal: FC<ModalProps> = props => {
     const {
         active,
-        content,
+        children,
         onClose,
     } = props;
 
@@ -22,7 +22,7 @@ const Modal: FC<ModalProps> = props => {
             <C.ModalWindow
                 isModalActive={active}
                 onClick={stopPropagation}>
-                {content}
+                {children}
             </C.ModalWindow>
         </C.ModalBackground>
     );

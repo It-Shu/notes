@@ -6,6 +6,7 @@ const EditMode: FC = observer(() => {
 
     const {notesStore} = useRootStore()
 
+
     return (
         <div>
             <button onClick={notesStore.disableEditMode}>Back</button>

@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://77.79.188.93:8077/'
+    baseURL: 'https://77.79.188.93:8077/'
 })
 
 export type NoteType = {
