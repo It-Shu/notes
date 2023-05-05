@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import Note from "./Note";
 import Modal from "../modal/Modal";
@@ -6,6 +6,7 @@ import {useModal} from "../modal/hooks/useModal";
 import NoteDetails from "./NoteDetails";
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../../store/RootStoreProvider";
+import Content from "../../Test";
 
 const NotesContainer = styled.div`
   display: flex;
@@ -51,8 +52,28 @@ const Notes: React.FunctionComponent = observer(() => {
         setNoteDataChanged(true);
     }
 
-    // todo открытые модального окна только после изменения данных
+    // test
+    const [actionExecuted, setActionExecuted] = useState(false);
 
+    const delayedCall = () => {
+        setTimeout(() => {
+            alert("Действие выполнено");
+            setActionExecuted(true);
+        }, 0);
+    };
+
+    const handleConfirm = useCallback(() => {
+        delayedCall();
+    }, []);
+
+    const actionCheck = () => {
+        if (!actionExecuted) {
+            return handleActive();
+        } else {
+            return delayedCall();
+        }
+    };
+// test
     if (notesStore.error) {
         return <div>
             {notesStore.error}
@@ -60,10 +81,31 @@ const Notes: React.FunctionComponent = observer(() => {
     }
 
     return (
-        <NotesContainer>
-            <Modal active={modalActive} content={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose}/>
-            <Note handleActive={activateModalWindow}/>
-        </NotesContainer>
+        <>
+            {/*<button onClick={actionCheck}>Выполнить действие</button>*/}
+            {/*{!actionExecuted*/}
+            {/*    ?*/}
+
+            {/*        <Modal*/}
+            {/*            active={modalActive}*/}
+            {/*            children={*/}
+            {/*                <Content*/}
+            {/*                    onConfirm={handleConfirm}*/}
+            {/*                    isModalActive={modalActive}*/}
+            {/*                    onModalClose={handleClose}*/}
+            {/*                />}*/}
+            {/*            // onClose={handleClose}*/}
+            {/*        />*/}
+
+
+            {/*    : null }*/}
+
+            <NotesContainer>
+                <Modal children={<NoteDetails noteData={notesStore.note}/>} onClose={handleClose} active={modalActive}/>
+                <Note handleActive={activateModalWindow}/>
+            </NotesContainer>
+        </>
+
     )
 })
 
