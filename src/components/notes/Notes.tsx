@@ -63,6 +63,7 @@ const Notes: React.FunctionComponent = observer(() => {
             <NotesContainer>
                 <Modal children={<NoteDetails />} onClose={handleClose} active={modalActive}/>
                 <Note handleActive={activateModalWindow}/>
+                <button>+</button>
             </NotesContainer>
         </>
 
