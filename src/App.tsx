@@ -19,14 +19,16 @@ const App = observer(() => {
     return (
         <>
             <ConnectionStatus>Connection status: {connectStore.connectionStatus}</ConnectionStatus>
-                <Sidebar />
-                <Routes>
-                    <Route path='/notes' element={<Notes />} />
-                    <Route path='/note' element={<AddNote />} />
+                {/*<Sidebar />*/}
+                {/*<Routes>*/}
+                    <Notes />
+
+                    {/*<Route path='/notes' element={<Notes />} />*/}
+                    {/*<Route path='/note' element={<AddNote />} />*/}
                     {/*<Route path='/tasks' element={<Tasks />} />*/}
                     {/*<Route path='/chats' element={<Chats />} />*/}
                     {/*<Route path='/analytics' element={<Analytics />} />*/}
-                </Routes>
+                {/*</Routes>*/}
         </>
     );
 })

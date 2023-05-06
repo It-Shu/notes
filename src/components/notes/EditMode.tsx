@@ -4,7 +4,11 @@ import {observer} from "mobx-react-lite";
 import * as C from '../Notes.style'
 import {NoteInputContainer} from "../Notes.style";
 
-const EditMode: FC = observer(() => {
+type EditModeTypes = {
+    formattedDate: string
+}
+
+const EditMode: FC<EditModeTypes> = observer((props) => {
 
     const {notesStore} = useRootStore()
 
@@ -15,18 +19,17 @@ const EditMode: FC = observer(() => {
                 <C.NoteButton onClick={notesStore.updateNote}>update note</C.NoteButton>
             </div>
 
-            <div>ID: {notesStore.note.id}</div>
+            <C.NoteNumber>Note №: {notesStore.note.id}</C.NoteNumber>
             <C.NoteInputContainer>
-                <div>Title: <C.NoteInput type="text" value={notesStore.updatedNoteData.title}
+                <C.NoteInput type="text" value={notesStore.updatedNoteData.title}
                                          onChange={notesStore.getNewNoteTitle}
-                                         /></div>
-                <div>Content: <C.NoteInput type="text" value={notesStore.updatedNoteData.content}
+                                         />
+                <C.NoteInput type="text" value={notesStore.updatedNoteData.content}
                                            onChange={notesStore.getNewNoteContent}
-                /></div>
-                <div>Date: {notesStore.note.date}</div>
+                />
             </C.NoteInputContainer>
 
-
+            <C.NoteDate>{props.formattedDate}</C.NoteDate>
             {notesStore.updatedNoteData.status
                 ? <div style={{color: "green"}}>Status</div>
                 : <div style={{color: "red"}}>Status</div>

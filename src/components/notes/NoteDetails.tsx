@@ -9,10 +9,6 @@ const NoteDetails = observer(() => {
 
     const {notesStore} = useRootStore()
 
-    if (notesStore.editModeIsActive) {
-        return <EditMode/>
-    }
-
     const date = new Date(notesStore.note.date);
 
     const options: Intl.DateTimeFormatOptions = {
@@ -22,7 +18,10 @@ const NoteDetails = observer(() => {
     };
 
     const formattedDate = date.toLocaleDateString('en-US', options);
-    console.log(formattedDate);
+
+    if (notesStore.editModeIsActive) {
+        return <EditMode formattedDate={formattedDate}/>
+    }
 
     return (
         <>
@@ -30,7 +29,7 @@ const NoteDetails = observer(() => {
                 <C.NoteButton onClick={notesStore.activateEditMode}>Edit</C.NoteButton>
             </C.EditNoteButtonContainer>
 
-            <div>Note №: {notesStore.note.id}</div>
+            <C.NoteNumber>Note №: {notesStore.note.id}</C.NoteNumber>
             <C.NoteInputContainer>
                 <h2>{notesStore.updatedNoteData.title}</h2>
                 <p>{notesStore.updatedNoteData.content}</p>

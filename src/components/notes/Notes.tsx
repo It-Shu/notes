@@ -7,6 +7,9 @@ import NoteDetails from "./NoteDetails";
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../../store/RootStoreProvider";
 import * as C from '../Notes.style'
+import {AddNoteButton} from "../Notes.style";
+import AddNote from "./AddNote";
+
 const NotesContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,6 +32,7 @@ const Notes: React.FunctionComponent = observer(() => {
     const {modalActive, handleClose, handleActive} = useModal(false);
 
     const [noteDataChanged, setNoteDataChanged] = useState(false);
+    const [addNoteActive, setAddNoteActive] = useState(false)
 
     useEffect(() => {
         notesStore.fetchNote()
@@ -52,19 +56,38 @@ const Notes: React.FunctionComponent = observer(() => {
         notesStore.editModeIsActive = modalActive
     }
 
+    const addNoteModalActive = () => {
+        setAddNoteActive(true)
+        handleActive()
+    }
+    const addNoteModalDeactivate = () => {
+        setAddNoteActive(false)
+        handleClose()
+    }
+
     if (notesStore.error) {
         return <C.NoteError>
             {notesStore.error}
         </C.NoteError>
     }
 
+    if (addNoteActive) {
+        return <NotesContainer>
+            <Modal children={<AddNote/>} onClose={addNoteModalDeactivate} active={modalActive}/>
+            <Note handleActive={activateModalWindow}/>
+            <C.AddNoteButton onClick={addNoteModalActive}>+</C.AddNoteButton>
+        </NotesContainer>
+    }
+
     return (
         <>
             <NotesContainer>
-                <Modal children={<NoteDetails />} onClose={handleClose} active={modalActive}/>
+
+                <Modal children={<NoteDetails/>} onClose={handleClose} active={modalActive}/>
+
                 <Note handleActive={activateModalWindow}/>
-                <button>+</button>
             </NotesContainer>
+            <C.AddNoteButton onClick={addNoteModalActive}>+</C.AddNoteButton>
         </>
 
     )
@@ -95,20 +118,34 @@ export default Notes
 // };
 // test
 
-{/*<button onClick={actionCheck}>Выполнить действие</button>*/}
-{/*{!actionExecuted*/}
-{/*    ?*/}
+{/*<button onClick={actionCheck}>Выполнить действие</button>*/
+}
+{/*{!actionExecuted*/
+}
+{/*    ?*/
+}
 
-{/*        <Modal*/}
-{/*            active={modalActive}*/}
-{/*            children={*/}
-{/*                <Content*/}
-{/*                    onConfirm={handleConfirm}*/}
-{/*                    isModalActive={modalActive}*/}
-{/*                    onModalClose={handleClose}*/}
-{/*                />}*/}
-{/*            // onClose={handleClose}*/}
-{/*        />*/}
+{/*        <Modal*/
+}
+{/*            active={modalActive}*/
+}
+{/*            children={*/
+}
+{/*                <Content*/
+}
+{/*                    onConfirm={handleConfirm}*/
+}
+{/*                    isModalActive={modalActive}*/
+}
+{/*                    onModalClose={handleClose}*/
+}
+{/*                />}*/
+}
+{/*            // onClose={handleClose}*/
+}
+{/*        />*/
+}
 
 
-{/*    : null }*/}
+{/*    : null }*/
+}
