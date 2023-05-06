@@ -63,6 +63,11 @@ export const NoteInput = styled.input`
     
   }
 `
+
+export const EditNoteButtonContainer = styled.div`
+display: flex;
+  justify-content: flex-end;
+`
 export const NoteButton = styled.button`
   padding: 10px;
   margin: 10px;
@@ -80,6 +85,10 @@ export const NoteButton = styled.button`
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   }
 
+`
+
+export const NoteDate = styled.div`
+opacity: 0.5;
 `
 
 export const NoteInputContainer = styled.div`
