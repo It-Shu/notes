@@ -13,7 +13,7 @@ class NotesStore {
     notes: NotesType[] = [];
     deleteStatus: string = ''
     updatedNoteData: NoteType = {title: '', content: '', status: true}
-    editModeIsActive: boolean = false
+    editModeIsActive: boolean = true
 
     newNoteTitle: string | undefined = ''
     newNoteContent: string | undefined = ''
@@ -108,6 +108,12 @@ class NotesStore {
                     }
                     this.newNoteStatus = res.data.data
 
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                .finally(() => {
+                    this.fetchNote()
                 })
         }
 
