@@ -32,7 +32,8 @@ export const ModalBackground = styled.div<ModalBackgroundProps>`
 export const ModalWindow = styled.div<ModalBackgroundProps>`
   padding: 30px;
   border-radius: 12px;
-  max-width: 60%;
+  width: 40%;
+  //max-width: 60%;
   background-color: #eae284;
   ${({isModalActive}) => (isModalActive
       ? css`

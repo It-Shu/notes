@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import * as FaIcons from "react-icons/fa";
+
+type AddNoteValueProps = {
+    isValueLength?: boolean
+}
 
 export const Note = styled.div`
   display: flex;
@@ -54,6 +58,7 @@ export const NoteInput = styled.input`
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.09);
   border-radius: 5px;
   outline: none;
+  width: 90%;
 
   :hover {
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
@@ -64,11 +69,15 @@ export const NoteInput = styled.input`
   }
 `
 
+export const InputCheckValueLength = styled.div`
+opacity: 0.5;
+`
+
 export const EditNoteButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `
-export const NoteButton = styled.button`
+export const NoteButton = styled.button<AddNoteValueProps>`
   padding: 10px;
   margin: 10px;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
@@ -76,7 +85,7 @@ export const NoteButton = styled.button`
   border-radius: 5px;
   color: #fff;
   background-color: #a5a5ec;
-
+  cursor: pointer;
   :hover {
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.4);
   }
@@ -84,6 +93,18 @@ export const NoteButton = styled.button`
   :active {
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   }
+  ${({ isValueLength }) => (isValueLength
+          ? css`
+                    color: #181717;
+                    background-color: #bbbbbe;
+                  `
+          : css`
+                    color: #fff;
+                    background-color: #a5a5ec;
+                  `
+  )
+  }
+  
 `
 
 export const AddNoteButton = styled(FaIcons.FaPlus)`
@@ -118,11 +139,8 @@ export const NoteNumber = styled.div`
   opacity: 0.5;
 `
 
-
-
 export const NoteInputContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-
 `

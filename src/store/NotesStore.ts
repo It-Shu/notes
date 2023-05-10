@@ -13,7 +13,7 @@ class NotesStore {
     notes: NotesType[] = [];
     deleteStatus: string = ''
     updatedNoteData: NoteType = {title: '', content: '', status: true}
-    editModeIsActive: boolean = true
+    editModeIsActive: boolean = false
 
     newNoteTitle: string | undefined = ''
     newNoteContent: string | undefined = ''
@@ -61,7 +61,7 @@ class NotesStore {
                 console.log(`updated status: ${res.data.data}`)
             })
             .catch(error => {
-                alert(`updated error: ${error}`)
+                alert(`updated error: ${error.message}`)
             })
             .finally(() => {
                 this.editModeIsActive = false
@@ -98,7 +98,16 @@ class NotesStore {
     }
 
     addNewNote = () => {
+        if (this.newNoteTitle === '') {
+            return this.newNoteStatus = 'title is required'
+        }
+
+        if (this.newNoteContent === '') {
+            return this.newNoteStatus = 'content is required'
+        }
+
         if (this.newNoteTitle && this.newNoteContent) {
+
             const newNote = {"title": this.newNoteTitle, "content": this.newNoteContent, "status": true}
             notesAPI.CreateNote(newNote)
                 .then((res) => {
@@ -115,12 +124,6 @@ class NotesStore {
                 .finally(() => {
                     this.fetchNote()
                 })
-        }
-
-        if (this.newNoteTitle === '') {
-            return this.newNoteStatus = 'title is required'
-        } else if (this.newNoteContent === '') {
-            return this.newNoteStatus = 'content is required'
         }
     }
 
